@@ -1,0 +1,37 @@
+package com.example.awtSample;
+
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.PrintWriter;
+import java.net.ServerSocket;
+import java.net.Socket;
+
+public class Main {
+
+    public static void main(String[] args) {
+	// write your code here
+        //ServerSocket is used on the server side to create a server socket
+        // and accept() waits for the client, if the cliennt connect with the same port on the server side then returns a socket and establishes the connection
+        // close() closes the connection on the server side
+
+        //Socket class is used for the communication between client/server for reading and writing messages
+        try(ServerSocket serverSocket=new ServerSocket(5000)){
+            Socket socket=serverSocket.accept();// it blocks until the client connect to the server
+            System.out.println("client connected");
+            BufferedReader input=new BufferedReader(new InputStreamReader(socket.getInputStream()));
+            PrintWriter output=new PrintWriter(socket.getOutputStream(), true);
+
+            while (true){
+                String echoString=input.readLine();
+                if (echoString.equals("exit")){
+                    break;
+                }
+                output.println("Echo from the srever "+ echoString);
+            }
+
+        }catch (IOException e){
+            System.out.println("Server exception "+e.getMessage());
+        }
+    }
+}
