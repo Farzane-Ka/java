@@ -1,3 +1,4 @@
+//the code reads from a url address
 package com.example.awtSample;
 
 import java.io.BufferedReader;
