@@ -81,7 +81,7 @@ class MyConsumer implements Runnable{
                     System.out.println(color + "Removing" + buffer.get(0));
                     buffer.remove(0);
                 }
-            } finally {
+            } finally {// we are always guaranteed that we will release the lock no matter what happens in the try block
                 bufferLock.unlock();
             }
         }
